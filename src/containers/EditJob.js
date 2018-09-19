@@ -114,7 +114,6 @@ class EditJob extends Component {
       }
 
       addGoal(event) {
-          debugger;
         const currentGoals = this.state.goals;
         const newArr = [];
         newArr.push({ type: 'goal', weight: 0, description: 'New Goal' });
@@ -160,6 +159,7 @@ class EditJob extends Component {
             <div>
                 <JobForm 
                     editing={true}
+                    viewOnly={job.status == 'Draft' ? false : true}
                     job={this.state.job}
                     goals={this.state.goals}
                     skills={this.state.skills}

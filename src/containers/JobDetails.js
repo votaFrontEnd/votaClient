@@ -33,6 +33,8 @@ class JobDetails extends Component {
         super(props);
         this.handleDialogInputChange = this.handleDialogInputChange.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.handlePublishJob = this.handlePublishJob.bind(this);
+        this.handleCloseJob= this.handleCloseJob.bind(this);
         this.state = {
             openAddApplicants: false,
             openAddInterviewers: false,
@@ -63,7 +65,7 @@ class JobDetails extends Component {
                 return jobArr[0];
             }
         }
-        return [];
+        return {};
     }
 
     getApplicants(){
@@ -143,6 +145,7 @@ class JobDetails extends Component {
 
     render() {
         const job = this.getJob();
+        const status = job.status == null ? null : job.status;
         const users = this.getUsers();
         const applicants = this.getApplicants();
 
@@ -264,11 +267,11 @@ class JobDetails extends Component {
 
                 <JobDescription job={job} users={users}/>
                 <div style={styles.content}>
-                    <Link to={"/editJob/" + job.id}><Button style={styles.buttons} variant="contained" color="primary">Edit Job</Button></Link>
-                    <Button style={styles.buttons} variant="contained" color="primary" onClick={this.handleAddApplicantsClickOpen}>Add Applicant</Button>
-                    <Button style={styles.buttons} variant="contained" color="primary" onClick={this.handleAddInterviewerClickOpen}>Add Interviewers</Button>                    
-                    <Button style={styles.buttons} variant="contained" color="primary" onClick={this.handlePublishJob}>Publish Job</Button>      
-                    <Button style={styles.buttons} variant="contained" color="secondary" onClick={this.handleCloseJob}>Close Job</Button>                                      
+                    <Link to={"/editJob/" + job.id}><Button style={styles.buttons} variant="contained" color="primary">View/Edit Job</Button></Link>
+                    <Button style={styles.buttons} variant="contained" color="primary" disabled={status == 'Published' ? false : true} onClick={this.handleAddApplicantsClickOpen}>Add Applicant</Button>
+                    <Button style={styles.buttons} variant="contained" color="primary" disabled={status == 'Published' ? false : true}onClick={this.handleAddInterviewerClickOpen}>Add Interviewers</Button>                    
+                    <Button style={styles.buttons} variant="contained" color="primary" disabled={status == 'Published' ? true : false}onClick={this.handlePublishJob}>Publish Job</Button>      
+                    <Button style={styles.buttons} variant="contained" color="secondary" disabled={status == 'Closed' ? true : false} onClick={this.handleCloseJob}>Close Job</Button>                                      
                 </div>
 
                 {applicants.length > 0 &&

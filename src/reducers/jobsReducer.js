@@ -11,7 +11,6 @@ export default function jobsReducer(state = [], action){
                 Object.assign({}, action.job)
             ]
         case types.UPDATE_JOBS_SUCCESS:
-            debugger;
             return [
                 ...state.filter(job => job.id !== action.job.id),
                 Object.assign({}, action.job)

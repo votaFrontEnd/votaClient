@@ -32,7 +32,6 @@ class Login extends React.Component{
 
   onSave(event) {
     event.preventDefault();
-    debugger;
     this.props.actions.loginUser(this.state.credentials, this.props.history);
   }
 
@@ -44,7 +43,7 @@ class Login extends React.Component{
         maxWidth: 400,
         height: 'auto',
         position: 'absolute',
-        top: '20%',
+        top: '0%',
         left: 10,
         right: 0,
         margin: 'auto'
@@ -95,6 +94,12 @@ class Login extends React.Component{
       btnSpan: {
         marginLeft: 5
       },
+      logo:{
+        justifyContent: 'center',
+        alignItems: 'top',
+        width: 400,
+        height: 400,
+      }
     };
 
     return (
@@ -104,48 +109,43 @@ class Login extends React.Component{
       <MuiThemeProvider>
         <div>
           <div style={styles.loginContainer}>
-  
-            <img src={logo} className="App-logo" alt="logo" />
-  
-            <Paper style={styles.paper}>
-  
-              <form>
-                <TextField
-                  hintText="Username"
-                  name="user"
-                  floatingLabelText="Username"
-                  fullWidth={true}
-                  value={this.state.credentials.user}
-                  onChange={this.onChange}
-                />
-                <TextField
-                  hintText="Password"
-                  floatingLabelText="Password"
-                  fullWidth={true}
-                  value={this.state.credentials.password}
-                  onChange={this.onChange}
-                  type="password"
-                />
-  
-                <div>
-  
-                  <Link to="/">
-                    <RaisedButton label="Login"
-                                  primary={true}
-                                  style={styles.loginBtn} onClick={this.onSave}/>
-                  </Link>
-                </div>
-              </form>
-            </Paper>
-  
-            <div style={styles.buttonsDiv}>
-              <FlatButton
-                label="Register"
-                href="/"
-                style={styles.flatButton}
-                disabled={true}
-                icon={<PersonAdd />}
-              />
+
+            <div>
+              <img src={logo} style={styles.logo} alt="logo" />
+            </div>
+
+            <div>
+
+              <Paper style={styles.paper}>
+    
+                <form>
+                  <TextField
+                    hintText="Username"
+                    name="user"
+                    floatingLabelText="Username"
+                    fullWidth={true}
+                    value={this.state.credentials.user}
+                    onChange={this.onChange}
+                  />
+                  <TextField
+                    hintText="Password"
+                    floatingLabelText="Password"
+                    fullWidth={true}
+                    value={this.state.credentials.password}
+                    onChange={this.onChange}
+                    type="password"
+                  />
+    
+                  <div>
+    
+                    <Link to="/">
+                      <RaisedButton label="Login"
+                                    primary={true}
+                                    style={styles.loginBtn} onClick={this.onSave}/>
+                    </Link>
+                  </div>
+                </form>
+              </Paper>
             </div>
           </div>
         </div>

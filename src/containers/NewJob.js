@@ -162,6 +162,7 @@ class NewJob extends Component {
             <div>
                 <JobForm 
                     editing={false}
+                    viewOnly={false}
                     job={this.state.job}
                     goals={this.state.goals}
                     skills={this.state.skills}

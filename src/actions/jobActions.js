@@ -65,7 +65,6 @@ export function createJob(job) {
 export function editJob(jobId, job){
     return function (dispatch) {
         return jobsApi.editJob(jobId, job).then(data => {
-            debugger;
           dispatch(loadJobsUpdatedSuccess(data.job));   
         }).catch(error => {
           throw(error);

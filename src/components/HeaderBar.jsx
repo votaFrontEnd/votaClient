@@ -7,9 +7,16 @@ import MoreVertIcon from "material-ui/svg-icons/navigation/more-vert";
 import Menu from "material-ui/svg-icons/navigation/menu";
 import ViewModule from "material-ui/svg-icons/action/view-module";
 import { white } from "material-ui/styles/colors";
+import auth from '../auth/authenticator';
 import SearchBox from "./SearchBox";
 
 class HeaderBar extends React.Component {
+
+  handleClose = () => {
+    auth.logOut();
+    window.location.pathname = '/'
+  };
+
   render() {
     const { styles, handleChangeRequestNavDrawer } = this.props;
 
@@ -53,20 +60,8 @@ class HeaderBar extends React.Component {
                 targetOrigin={{ horizontal: "right", vertical: "top" }}
                 anchorOrigin={{ horizontal: "right", vertical: "top" }}
               >
-                <MenuItem key={1} primaryText="Link 1" />
-                <MenuItem key={2} primaryText="Link 2" />
-                <MenuItem key={3} primaryText="Link 3" />
-              </IconMenu>
-              <IconMenu
-                color={white}
-                iconButtonElement={
-                  <IconButton>
-                    <MoreVertIcon color={white} />
-                  </IconButton>
-                }
-                targetOrigin={{ horizontal: "right", vertical: "top" }}
-                anchorOrigin={{ horizontal: "right", vertical: "top" }}
-              >
+                <MenuItem key={1} primaryText="Change Password" />
+                <MenuItem  onClick={this.handleClose} primaryText="Sign Out" />
               </IconMenu>
             </div>
           }

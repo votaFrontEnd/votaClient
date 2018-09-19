@@ -32,6 +32,7 @@ export default class JobForm extends Component {
             name="name"
             value={this.props.job.name}
             onChange={this.props.onChange}
+            disabled={this.props.viewOnly}
           />
 
           <TextField
@@ -41,6 +42,7 @@ export default class JobForm extends Component {
             name="reference_id"
             value={this.props.job.reference_id}
             onChange={this.props.onChange}
+            disabled={this.props.viewOnly}
           />
 
           <TextField
@@ -50,6 +52,7 @@ export default class JobForm extends Component {
             name="level"
             value={this.props.job.level}
             onChange={this.props.onChange}
+            disabled={this.props.viewOnly}
           />
 
           <TextField
@@ -59,6 +62,7 @@ export default class JobForm extends Component {
             name="summary"
             value={this.props.job.summary}
             onChange={this.props.onChange}
+            disabled={this.props.viewOnly}
           />
           <br/>
           <Divider />
@@ -78,6 +82,7 @@ export default class JobForm extends Component {
                     <TextField
                       type="number"
                       name={item.weight}
+                      disabled={this.props.viewOnly}
                       style={{width: 50}}
                       onChange={e =>
                         this.props.handleGoalChange(e, item, "weight", counter)
@@ -89,6 +94,7 @@ export default class JobForm extends Component {
                     <TextField
                       name={item.description}
                       style={{width:'90%'}}
+                      disabled={this.props.viewOnly}
                       onChange={e =>
                         this.props.handleGoalChange(e, item, "description", counter)
                       }
@@ -97,6 +103,7 @@ export default class JobForm extends Component {
                     <RaisedButton
                       label="X"
                       primary={true}
+                      disabled={this.props.viewOnly}
                       onClick={e =>
                         this.props.deleteGoal(e, counter)
                       }
@@ -109,6 +116,7 @@ export default class JobForm extends Component {
           <RaisedButton
             label="Add Goal"
             primary={true}
+            disabled={this.props.viewOnly}
             onClick={this.props.addGoal}
           />
           <br/>
@@ -130,6 +138,7 @@ export default class JobForm extends Component {
                       name={item.weight}
                       type="number"
                       style={{width: 50}}
+                      disabled={this.props.viewOnly}
                       onChange={e =>
                         this.props.handleSkillChange(e, item, "weight", counter)
                       }
@@ -140,6 +149,7 @@ export default class JobForm extends Component {
                     <TextField
                       name={item.description}
                       style={{width:'90%'}}
+                      disabled={this.props.viewOnly}
                       onChange={e =>
                         this.props.handleSkillChange(e, item, "description", counter)
                       }
@@ -148,6 +158,7 @@ export default class JobForm extends Component {
                     <RaisedButton
                       label="X"
                       primary={true}
+                      disabled={this.props.viewOnly}
                       onClick={e =>
                         this.props.deleteSkill(e, counter)
                       }
@@ -160,12 +171,13 @@ export default class JobForm extends Component {
           <RaisedButton
             label="Add Skill"
             primary={true}
+            disabled={this.props.viewOnly}
             onClick={this.props.addSkill}
           />
           <br/>
           <br/>
-          <RaisedButton label="Cancel" secondary={true} />
-          <RaisedButton label="Save" primary={true} type="submit" />
+          <RaisedButton label="Cancel" secondary={true} disabled={this.props.viewOnly} />
+          <RaisedButton label="Save" primary={true} disabled={this.props.viewOnly} type="submit" />
         </form>
       </PageBase>
     );

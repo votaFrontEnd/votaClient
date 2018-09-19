@@ -37,6 +37,34 @@ class JobsApi {
         });
     }
 
+    static closeJob(jobId) {
+        const request = new Request(`http://35.153.120.148:5000/job/update/` + jobId, {
+          method: 'POST',
+          body: JSON.stringify({
+            status: 'Closed'
+          })
+        });
+        return fetch(request).then(response => {
+          return response.json();
+        }).catch(error => {
+          return error;
+        });
+    }
+
+    static publishJob(jobId) {
+        const request = new Request(`http://35.153.120.148:5000/job/update/` + jobId, {
+          method: 'POST',
+          body: JSON.stringify({
+              status: 'Published'
+          })
+        });
+        return fetch(request).then(response => {
+          return response.json();
+        }).catch(error => {
+          return error;
+        });
+    }
+
     static addApplicant(jobId, applicantName) {
         const request = new Request(`http://35.153.120.148:5000/job/update/` + jobId, {
           method: 'POST',
