@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 import RaisedButton from "material-ui/RaisedButton";
 import TextField from "material-ui/TextField";
 import Divider from "material-ui/Divider";
@@ -13,19 +13,18 @@ import {
   TableRowColumn
 } from "material-ui/Table";
 
-
 export default class JobForm extends Component {
-
-  constructor(props){
+  constructor(props) {
     super(props);
   }
 
   render() {
-    const weightColumnStyle = { width: 12};
+    const weightColumnStyle = { width: 12 };
     return (
-      <PageBase title={this.props.editing == true ? 'Edit Job' : 'Create Job'}>
+      <PageBase title={this.props.editing == true ? "Edit Job" : "Create Job"}>
         <form onSubmit={this.props.onSave}>
           <TextField
+            required
             hintText="Job Name"
             floatingLabelText="Name"
             fullWidth={true}
@@ -34,7 +33,6 @@ export default class JobForm extends Component {
             onChange={this.props.onChange}
             disabled={this.props.viewOnly}
           />
-
           <TextField
             hintText="Reference Id"
             floatingLabelText="ReferenceId"
@@ -44,46 +42,49 @@ export default class JobForm extends Component {
             onChange={this.props.onChange}
             disabled={this.props.viewOnly}
           />
-
           <TextField
             hintText="Level"
             floatingLabelText="Level"
             fullWidth={true}
+            required
             name="level"
             value={this.props.job.level}
             onChange={this.props.onChange}
             disabled={this.props.viewOnly}
           />
-
           <TextField
             hintText="Summary"
             floatingLabelText="Summary"
             fullWidth={true}
             name="summary"
+            required
             value={this.props.job.summary}
             onChange={this.props.onChange}
             disabled={this.props.viewOnly}
           />
-          <br/>
+          <br />
           <Divider />
-          <br/>
+          <br />
           Goals
           <Table>
             <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
               <TableRow>
-                <TableHeaderColumn style={weightColumnStyle}>%</TableHeaderColumn>
+                <TableHeaderColumn style={weightColumnStyle}>
+                  %
+                </TableHeaderColumn>
                 <TableHeaderColumn>Description</TableHeaderColumn>
               </TableRow>
             </TableHeader>
             <TableBody displayRowCheckbox={false}>
               {this.props.goals.map((item, counter) => (
                 <TableRow key={`tr-${counter}`} selectable={false}>
-                  <TableRowColumn  style={weightColumnStyle}>
+                  <TableRowColumn style={weightColumnStyle}>
                     <TextField
                       type="number"
+                      required
                       name={item.weight}
                       disabled={this.props.viewOnly}
-                      style={{width: 50}}
+                      style={{ width: 50 }}
                       onChange={e =>
                         this.props.handleGoalChange(e, item, "weight", counter)
                       }
@@ -93,10 +94,16 @@ export default class JobForm extends Component {
                   <TableRowColumn>
                     <TextField
                       name={item.description}
-                      style={{width:'90%'}}
+                      required
+                      style={{ width: "90%" }}
                       disabled={this.props.viewOnly}
                       onChange={e =>
-                        this.props.handleGoalChange(e, item, "description", counter)
+                        this.props.handleGoalChange(
+                          e,
+                          item,
+                          "description",
+                          counter
+                        )
                       }
                       value={this.props.goals[counter].description}
                     />
@@ -104,9 +111,7 @@ export default class JobForm extends Component {
                       label="X"
                       primary={true}
                       disabled={this.props.viewOnly}
-                      onClick={e =>
-                        this.props.deleteGoal(e, counter)
-                      }
+                      onClick={e => this.props.deleteGoal(e, counter)}
                     />
                   </TableRowColumn>
                 </TableRow>
@@ -119,25 +124,28 @@ export default class JobForm extends Component {
             disabled={this.props.viewOnly}
             onClick={this.props.addGoal}
           />
-          <br/>
+          <br />
           <Divider />
-          <br/>
+          <br />
           Skills
           <Table>
             <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
               <TableRow>
-                <TableHeaderColumn   style={weightColumnStyle}>%</TableHeaderColumn>
+                <TableHeaderColumn style={weightColumnStyle}>
+                  %
+                </TableHeaderColumn>
                 <TableHeaderColumn>Description</TableHeaderColumn>
               </TableRow>
             </TableHeader>
             <TableBody displayRowCheckbox={false}>
               {this.props.skills.map((item, counter) => (
                 <TableRow key={`tr-${counter}`} selectable={false}>
-                  <TableRowColumn   style={weightColumnStyle}>
+                  <TableRowColumn style={weightColumnStyle}>
                     <TextField
                       name={item.weight}
                       type="number"
-                      style={{width: 50}}
+                      required
+                      style={{ width: 50 }}
                       disabled={this.props.viewOnly}
                       onChange={e =>
                         this.props.handleSkillChange(e, item, "weight", counter)
@@ -148,10 +156,16 @@ export default class JobForm extends Component {
                   <TableRowColumn>
                     <TextField
                       name={item.description}
-                      style={{width:'90%'}}
+                      style={{ width: "90%" }}
+                      required
                       disabled={this.props.viewOnly}
                       onChange={e =>
-                        this.props.handleSkillChange(e, item, "description", counter)
+                        this.props.handleSkillChange(
+                          e,
+                          item,
+                          "description",
+                          counter
+                        )
                       }
                       value={this.props.skills[counter].description}
                     />
@@ -159,9 +173,7 @@ export default class JobForm extends Component {
                       label="X"
                       primary={true}
                       disabled={this.props.viewOnly}
-                      onClick={e =>
-                        this.props.deleteSkill(e, counter)
-                      }
+                      onClick={e => this.props.deleteSkill(e, counter)}
                     />
                   </TableRowColumn>
                 </TableRow>
@@ -174,10 +186,19 @@ export default class JobForm extends Component {
             disabled={this.props.viewOnly}
             onClick={this.props.addSkill}
           />
-          <br/>
-          <br/>
-          <RaisedButton label="Cancel" secondary={true} disabled={this.props.viewOnly} />
-          <RaisedButton label="Save" primary={true} disabled={this.props.viewOnly} type="submit" />
+          <br />
+          <br />
+          <RaisedButton
+            label="Cancel"
+            secondary={true}
+            disabled={this.props.viewOnly}
+          />
+          <RaisedButton
+            label="Save"
+            primary={true}
+            disabled={this.props.viewOnly}
+            type="submit"
+          />
         </form>
       </PageBase>
     );

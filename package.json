@@ -1,13 +1,13 @@
 {
   "name": "vota-client",
-  "private":true,
-  "homepage":"https://votaFrontEnd.github.io/votaClient",
+  "private": true,
+  "homepage": "https://votaFrontEnd.github.io/votaClient",
   "version": "0.1.0",
   "dependencies": {
     "@material-ui/core": "^1.4.1",
-   "@material-ui/icons": "^2.0.0",
+    "@material-ui/icons": "^2.0.0",
     "classnames": "^2.2.6",
-    "flexboxgrid": "^6.3.1",
+    "flexboxgrid": "6.3.1",
     "gh-pages": "^2.0.0",
     "material-ui": "^0.20.1",
     "material-ui-rating": "^2.0.0",
@@ -22,8 +22,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "predeploy":"npm run build",
-    "deploy":"gh-pages -d build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
