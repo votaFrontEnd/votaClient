@@ -118,6 +118,7 @@ export default class JobForm extends Component {
               ))}
             </TableBody>
           </Table>
+          <div style={{ color: "red" }}>{this.props.goalsError}</div>
           <RaisedButton
             label="Add Goal"
             primary={true}
@@ -180,6 +181,7 @@ export default class JobForm extends Component {
               ))}
             </TableBody>
           </Table>
+          <div style={{ color: "red" }}>{this.props.skillsError}</div>
           <RaisedButton
             label="Add Skill"
             primary={true}
