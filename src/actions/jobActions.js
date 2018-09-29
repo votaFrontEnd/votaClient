@@ -26,6 +26,10 @@ export function loadApplicantsUpdatedSuccess(applicants) {
   return { type: types.UPDATE_APPLICANTS_SUCCESS, applicants };
 }
 
+export function createApplicanSuccess(applicants) {
+  return { type: types.CREATE_APPLICANTS_SUCCESS, applicants };
+}
+
 export function loadJobs() {
   return function(dispatch) {
     return jobsApi
@@ -111,8 +115,7 @@ export function addApplicant(jobId, applicantName) {
     return jobsApi
       .addApplicant(jobId, applicantName)
       .then(data => {
-        dispatch(loadApplicantsUpdatedSuccess(data.applicants));
-        dispatch(loadJobsUpdatedSuccess(data.job));
+        dispatch(createApplicanSuccess(data.applicants));
       })
       .catch(error => {
         throw error;
