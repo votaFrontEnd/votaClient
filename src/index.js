@@ -9,6 +9,7 @@ import { Provider } from "react-redux";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import { Switch } from "react-router";
 import auth from "./auth/authenticator";
+import "flexboxgrid/css/flexboxgrid.css";
 
 const store = configureStore();
 
