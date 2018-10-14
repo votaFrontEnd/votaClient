@@ -3,9 +3,60 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { Link } from "react-router-dom";
 
+import IconButton from "@material-ui/core/IconButton";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
+import { Redirect } from "react-router";
 export default class JobItem extends Component {
+  state = {
+    anchorEl: null
+  };
+
+  handleClick = event => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+
+  handleClose = () => {
+    this.setState({ anchorEl: null });
+  };
+
+  handleViewDetails = () => {
+    this.setState({ anchorEl: null, redirectViewDetail: true });
+  };
+
+  handleCloneJob = () => {
+    this.setState({ anchorEl: null, redirectCloneJob: true });
+  };
+
   render() {
+    const { anchorEl } = this.state;
+    const open = Boolean(anchorEl);
+
     const job = this.props.job;
+
+    if (this.state.redirectViewDetail) {
+      const viewDetail = "/jobDetails/" + this.props.job.id;
+      return (
+        <Redirect
+          to={{
+            pathname: viewDetail,
+            state: { referrer: "456" }
+          }}
+        />
+      );
+    }
+
+    if (this.state.redirectCloneJob) {
+      return (
+        <Redirect
+          to={{
+            pathname: "/newJob",
+            state: { job: job }
+          }}
+        />
+      );
+    }
 
     const jobId = job.id;
 
@@ -150,6 +201,26 @@ export default class JobItem extends Component {
           className={styles}
           elevation={4}
         >
+          <IconButton
+            style={{ float: "right" }}
+            aria-label="More"
+            aria-owns={open ? "long-menu" : null}
+            aria-haspopup="true"
+            onClick={this.handleClick}
+          >
+            <MoreVertIcon />
+          </IconButton>
+
+          <Menu
+            id="long-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={this.handleClose}
+          >
+            <MenuItem onClick={this.handleViewDetails}>View Details</MenuItem>
+            <MenuItem onClick={this.handleCloneJob}>Clone Job</MenuItem>
+          </Menu>
+
           <Typography variant="headline" component="h3">
             <Link to={"/jobDetails/" + this.props.job.id}>
               {referenceId} {title}

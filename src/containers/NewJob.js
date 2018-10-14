@@ -9,8 +9,29 @@ import * as courseActions from "../actions/jobActions";
 class NewJob extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      goals: [
+
+    var goals = null;
+    var skills = null;
+    var name = "";
+    var referenceId = "";
+    var level = "";
+    var summary = "";
+
+    if (
+      props.location != null &&
+      props.location.state != null &&
+      props.location.state.job != null
+    ) {
+      const job = props.location.state.job;
+      name = job.name;
+      referenceId = job.reference_id;
+      level = job.level;
+      summary = job.summary;
+
+      goals = job.parameters.filter(parameter => parameter.type == "goal");
+      skills = job.parameters.filter(parameter => parameter.type == "skill");
+    } else {
+      goals = [
         {
           type: "goal",
           weight: 25,
@@ -31,33 +52,38 @@ class NewJob extends Component {
           weight: 25,
           description: "Goal 4"
         }
-      ],
-      skills: [
+      ];
+
+      skills = [
         {
           type: "skill",
           weight: 25,
-          description: "Skill 1"
+          description: "Goal 1"
         },
         {
           type: "skill",
           weight: 25,
-          description: "Skill 2"
+          description: "Goal 2"
         },
         {
           type: "skill",
           weight: 25,
-          description: "Skill 3"
+          description: "Goal 3"
         },
         {
           type: "skill",
           weight: 25,
-          description: "Skill 4"
+          description: "Goal 4"
         }
-      ],
+      ];
+    }
+    this.state = {
+      goals: goals,
+      skills: skills,
       job: {
-        reference_id: "",
-        name: "",
-        summary: "",
+        reference_id: referenceId,
+        name: name,
+        summary: summary,
         owner: auth.getUser(),
         editor: [],
         interviewers: [],
