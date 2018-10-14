@@ -8,9 +8,16 @@ import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import * as types from "../actions/actionTypes";
+import Drawer from "@material-ui/core/Drawer";
+import Badge from "@material-ui/core/Badge";
+import Button from "@material-ui/core/Button";
+import JobFilter from "./JobFilter";
+import Chip from "@material-ui/core/Chip";
 
 class Jobs extends Component {
   render() {
+    const drawerWidth = 240;
+
     const { classes } = this.props;
     const style = {
       content: {
@@ -21,36 +28,46 @@ class Jobs extends Component {
     return (
       <div style={style.content}>
         <div style={style.content}>
-          <span style={style.content}>
-            <InputLabel htmlFor="role-select">Role:</InputLabel>
-            <Select
-              value={this.props.roleFilter}
-              onChange={this.props.handleRoleChange}
-              inputProps={{ name: "role", id: "role-select" }}
+          <span
+            style={{
+              top: "90px",
+              left: "0",
+              marginLeft: "-20px",
+              overflow: "hidden"
+            }}
+          >
+            <Button
+              variant="outlined"
+              onClick={e => this.props.toggleDrawer(e)}
             >
-              <MenuItem value={"SHOW_ALL"}>All</MenuItem>
-              <MenuItem value={"SHOW_OWNER"}>Owner</MenuItem>
-              <MenuItem value={"SHOW_VIEWER"}>Viewer</MenuItem>
-              <MenuItem value={"SHOW_INTERVIEWER"}>Interviewer</MenuItem>
-            </Select>
+              Filter
+            </Button>
           </span>
-          <span style={style.content}>
-            <InputLabel htmlFor="status-select">Status:</InputLabel>
-            <Select
-              value={this.props.statusFilter}
-              onChange={this.props.handleStatusChange}
-              inputProps={{ name: "status", id: "status-select" }}
-            >
-              <MenuItem value={"SHOW_ALL"}>All</MenuItem>
-              <MenuItem value={"SHOW_DRAFT"}>Draft</MenuItem>
-              <MenuItem value={"SHOW_PUBLISHED"}>Published</MenuItem>
-              <MenuItem value={"SHOW_CLOSED"}>Closed</MenuItem>
-            </Select>
+          <span>
+            <Chip
+              label={this.props.statusFilter.replace("SHOW_", "")}
+              color="primary"
+            />
           </span>
           <span style={{ float: "right", margin: 10 }}>
             Showing {this.props.jobs.length} of {this.props.totalJobs}
           </span>
         </div>
+
+        <Drawer
+          open={this.props.drawer}
+          onClose={e => this.props.toggleDrawer(e)}
+        >
+          <JobFilter
+            statusFilter={this.props.statusFilter}
+            allCount={this.props.totalJobs}
+            draftCount={this.props.draftCount}
+            publishedCount={this.props.publishedCount}
+            closedCount={this.props.closedCount}
+            toggleDrawer={this.props.toggleDrawer}
+            applyFilter={this.props.applyFilter}
+          />
+        </Drawer>
 
         <div className="row">
           {this.props.jobs.map((job, i) => (

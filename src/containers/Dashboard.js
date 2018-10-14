@@ -12,20 +12,34 @@ class Dashboard extends Component {
     super(props);
     this.handleStatusChange = this.handleStatusChange.bind(this);
     this.handleRoleChange = this.handleRoleChange.bind(this);
+    this.toggleDrawer = this.toggleDrawer.bind(this);
+    this.applyFilter = this.applyFilter.bind(this);
+    this.state = {
+      drawer: false
+    };
   }
+
+  toggleDrawer = function() {
+    this.setState(state => ({
+      drawer: !state.drawer
+    }));
+  };
+
+  applyFilter = function(status, role) {
+    const { dispatch } = this.props;
+    dispatch(setRoleFilter(role));
+    dispatch(setStatusFilter(status));
+  };
 
   handleStatusChange = (e, name, prop, i) => {
     var value =
       e.target.type === "number" ? parseInt(e.target.value) : e.target.value;
-    const { dispatch } = this.props;
-    dispatch(setStatusFilter(value));
   };
 
   handleRoleChange = (e, name, prop, i) => {
     var value =
       e.target.type === "number" ? parseInt(e.target.value) : e.target.value;
     const { dispatch } = this.props;
-    dispatch(setRoleFilter(value));
   };
 
   componentDidMount() {
@@ -103,6 +117,14 @@ class Dashboard extends Component {
     const users = this.getUsers();
     const applicants = this.getApplicants();
 
+    const draftJobCount = this.props.jobs.filter(job => job.status == "Draft")
+      .length;
+    const publishedJobCount = this.props.jobs.filter(
+      job => job.status == "Published"
+    ).length;
+    const closedJobCount = this.props.jobs.filter(job => job.status == "Closed")
+      .length;
+
     return (
       <div>
         <div>
@@ -115,6 +137,12 @@ class Dashboard extends Component {
             roleFilter={this.props.roleFilter}
             handleStatusChange={this.handleStatusChange}
             handleRoleChange={this.handleRoleChange}
+            drawer={this.state.drawer}
+            toggleDrawer={this.toggleDrawer}
+            draftCount={draftJobCount}
+            publishedCount={publishedJobCount}
+            closedCount={closedJobCount}
+            applyFilter={this.applyFilter}
           />
         </div>
       </div>
