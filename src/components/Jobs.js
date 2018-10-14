@@ -13,8 +13,17 @@ import Badge from "@material-ui/core/Badge";
 import Button from "@material-ui/core/Button";
 import JobFilter from "./JobFilter";
 import Chip from "@material-ui/core/Chip";
+import { loadCSS } from "fg-loadcss/src/loadCSS";
+import Icon from "@material-ui/core/Icon";
 
 class Jobs extends Component {
+  componentDidMount() {
+    loadCSS(
+      "https://use.fontawesome.com/releases/v5.1.0/css/all.css",
+      document.querySelector("#insertion-point-jss")
+    );
+  }
+
   render() {
     const drawerWidth = 240;
 
