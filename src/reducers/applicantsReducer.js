@@ -6,9 +6,10 @@ export default function applicantsReducer(state = [], action) {
     case types.LOAD_APPLICANTS_SUCCESS:
       return action.applicants;
     case types.CREATE_APPLICANTS_SUCCESS:
-      const newState = Object.assign([], state);
-      newState.push(action.applicants);
-      return newState;
+      return [
+        ...state.filter(applicant => applicant.Id !== action.applicants.Id),
+        Object.assign({}, action.applicants)
+      ];
   }
   return state;
 }

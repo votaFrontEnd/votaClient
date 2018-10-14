@@ -115,7 +115,8 @@ export function addApplicant(jobId, applicantName) {
     return jobsApi
       .addApplicant(jobId, applicantName)
       .then(data => {
-        dispatch(createApplicanSuccess(data.applicants));
+        dispatch(loadJobsUpdatedSuccess(data.job));
+        dispatch(createApplicanSuccess(data.applicants[0]));
       })
       .catch(error => {
         throw error;
