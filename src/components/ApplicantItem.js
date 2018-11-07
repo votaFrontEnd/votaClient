@@ -129,6 +129,7 @@ export default class ApplicantItem extends Component {
       var individualGoalsArr = [];
       var individualSkillsArr = [];
       var individualOverallArr = [];
+      var totalComments = "";
       if (users.length > 0) {
         interviewer = users.filter(user => {
           return user.userid == rating.interviewer_id;
@@ -158,6 +159,7 @@ export default class ApplicantItem extends Component {
             });
           } else if (parameter.type == "overall") {
             overall += ratingValue.value;
+            totalComments += ratingValue.comment;
             individualOverallArr.push({ value: ratingValue.value });
           }
         }
@@ -170,7 +172,8 @@ export default class ApplicantItem extends Component {
         score: (goals + skills + overall) / 3,
         goals: goals,
         skills: skills,
-        overall: overall
+        overall: overall,
+        comments: totalComments
       };
     });
 
@@ -258,6 +261,26 @@ export default class ApplicantItem extends Component {
               </Typography>
             </ExpansionPanelDetails>
           </ExpansionPanel>
+
+          <ExpansionPanel>
+            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+              <ScoreLabel
+                label="Comments"
+                score={ratingsForApplicantArr.length}
+                hideColor={true}
+              />
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+              <Typography>
+                {scorePerInterviewer.map((interviewer, i) => (
+                  <div>
+                    {interviewer.name} - {interviewer.comments}
+                  </div>
+                ))}
+              </Typography>
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
+
           <Link to={"/addRatings/" + job.id + "/" + applicantID}>
             <Button
               style={styles.buttons}

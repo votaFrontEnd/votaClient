@@ -34,10 +34,15 @@ class JobDetails extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handlePublishJob = this.handlePublishJob.bind(this);
     this.handleCloseJob = this.handleCloseJob.bind(this);
+    this.handleCloseDialogClickClose = this.handleCloseDialogClickClose.bind(
+      this
+    );
     this.state = {
       openAddApplicants: false,
       openAddInterviewers: false,
+      openCloseDialog: false,
       applicantName: "",
+      closeComments: "",
       interviewers: []
     };
   }
@@ -111,9 +116,14 @@ class JobDetails extends Component {
     this.handleAddInterviewerClickClose();
   };
 
-  handleCloseJob() {
+  handleCloseDialogClickClose() {
     const job = this.getJob();
-    this.props.actions.closeJob(job.id);
+    this.props.actions.closeJob(job.id, this.state.closeComments);
+    this.setState({ openCloseDialog: false });
+  }
+
+  handleCloseJob() {
+    this.setState({ openCloseDialog: true });
   }
 
   handlePublishJob() {
@@ -209,6 +219,33 @@ class JobDetails extends Component {
             </Button>
             <Button onClick={this.handleAddApplicant} color="primary">
               Add
+            </Button>
+          </DialogActions>
+        </Dialog>
+
+        <Dialog
+          open={this.state.openCloseDialog}
+          onClose={this.handleCloseDialogClickClose}
+          aria-labelledby="form-dialog-title"
+        >
+          <DialogTitle id="form-dialog-title">Close Job</DialogTitle>
+          <DialogContent>
+            <DialogContentText>Enter your comments</DialogContentText>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="closeComments"
+              label="Comments"
+              type="text"
+              fullWidth
+              value={this.state.closeComments}
+              onChange={this.handleDialogInputChange}
+            />
+          </DialogContent>
+
+          <DialogActions>
+            <Button onClick={this.handleCloseDialogClickClose} color="primary">
+              Close
             </Button>
           </DialogActions>
         </Dialog>

@@ -2,12 +2,20 @@ import React, { Component } from "react";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { Link } from "react-router-dom";
-
+import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+import Icon from "@material-ui/core/Icon";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import StarIcon from "@material-ui/icons/Star";
+import CalendarIcon from "@material-ui/icons/CalendarToday";
+import AssignmentIcon from "@material-ui/icons/AssignmentInd";
+import InterviewersIcon from "@material-ui/icons/HowToReg";
 import { Redirect } from "react-router";
+import Grid from "@material-ui/core/Grid";
+import LinearProgress from "@material-ui/core/LinearProgress";
+
 export default class JobItem extends Component {
   state = {
     anchorEl: null
@@ -59,7 +67,7 @@ export default class JobItem extends Component {
     }
 
     const jobId = job.id;
-
+    const interviewers = job.interviewers != null ? job.interviewers.length : 0;
     const title = job.name != null ? job.name : "";
     const level = job.level != null ? job.level : "";
     const status = job.status;
@@ -162,26 +170,26 @@ export default class JobItem extends Component {
 
       if (applicantScoreArr != null && applicantScoreArr.length > 0) {
         applicant1 = applicantScoreArr[0].name;
-        applicantScore1 = " - " + applicantScoreArr[0].score.toFixed(2);
+        applicantScore1 = applicantScoreArr[0].score.toFixed(2);
 
         if (applicantScoreArr.length >= 2) {
           applicant2 = applicantScoreArr[1].name;
-          applicantScore2 = " - " + applicantScoreArr[1].score.toFixed(2);
+          applicantScore2 = applicantScoreArr[1].score.toFixed(2);
         }
 
         if (applicantScoreArr.length >= 3) {
           applicant3 = applicantScoreArr[2].name;
-          applicantScore3 = " - " + applicantScoreArr[2].score.toFixed(2);
+          applicantScore3 = applicantScoreArr[2].score.toFixed(2);
         }
 
         if (applicantScoreArr.length >= 4) {
           applicant4 = applicantScoreArr[3].name;
-          applicantScore4 = " - " + applicantScoreArr[3].score.toFixed(2);
+          applicantScore4 = applicantScoreArr[3].score.toFixed(2);
         }
 
         if (applicantScoreArr.length >= 5) {
           applicant5 = applicantScoreArr[4].name;
-          applicantScore5 = " - " + applicantScoreArr[4].score.toFixed(2);
+          applicantScore5 = applicantScoreArr[4].score.toFixed(2);
         }
       }
     }
@@ -221,46 +229,168 @@ export default class JobItem extends Component {
             <MenuItem onClick={this.handleCloneJob}>Clone Job</MenuItem>
           </Menu>
 
-          <Typography variant="headline" component="h3">
-            <Link to={"/jobDetails/" + this.props.job.id}>
+          <Typography variant="headline" component="h3" color="black">
+            <Link
+              style={{ textDecoration: "none", color: "black" }}
+              to={"/jobDetails/" + this.props.job.id}
+            >
               {referenceId} {title}
             </Link>
           </Typography>
-          <Typography variant="subheading" gutterBottom>
-            {level} <br />
-            Created: {createdTimeDisplay} <br />
-            Status: {status} <br />
-          </Typography>
-          <Typography style={{ padding: 20 }}>
-            # of Applicants: {numberOfApplicants} <br /> <br />
-            <table>
-              <tr>
-                <td>{applicant1}</td>
-                <td />
-                <td>{applicantScore1}</td>
-              </tr>
-              <tr>
-                <td>{applicant2}</td>
-                <td />
-                <td>{applicantScore2}</td>
-              </tr>
-              <tr>
-                <td>{applicant3}</td>
-                <td />
-                <td>{applicantScore3}</td>
-              </tr>
-              <tr>
-                <td>{applicant4}</td>
-                <td />
-                <td>{applicantScore4}</td>
-              </tr>
-              <tr>
-                <td>{applicant5}</td>
-                <td />
-                <td>{applicantScore5}</td>
-              </tr>
-            </table>
-          </Typography>
+          <div>
+            <span>{level}</span>
+            <span />
+            <span>
+              <Button
+                fontSize="small"
+                variant="contained"
+                color={
+                  status == "Published"
+                    ? "primary"
+                    : status == "Draft"
+                      ? "secondary"
+                      : "error"
+                }
+                size="small"
+                style={{
+                  margin: 10,
+                  padding: 2,
+                  minHeight: "18px",
+                  fontSize: "8"
+                }}
+              >
+                {status}
+              </Button>
+            </span>
+          </div>
+          <Grid container spacing={8}>
+            <Grid item xs>
+              <CalendarIcon /> {createdTimeDisplay}
+            </Grid>
+            <Grid item xs>
+              <AssignmentIcon /> {numberOfApplicants}
+            </Grid>
+            <Grid item xs>
+              <InterviewersIcon /> {interviewers}
+            </Grid>
+          </Grid>
+
+          <br />
+
+          <Grid container spacing={40}>
+            <Grid item xs>
+              {applicant1}
+            </Grid>
+            <Grid item>{applicantScore1}</Grid>
+            <Grid item>
+              {applicantScore1 == "" ? <div /> : <StarIcon color={"white"} />}
+            </Grid>
+            <Grid item xs>
+              {applicantScore1 == "" ? (
+                <div />
+              ) : (
+                <LinearProgress
+                  variant="determinate"
+                  value={applicantScore1 * 20}
+                />
+              )}
+            </Grid>
+          </Grid>
+
+          <Grid container spacing={40}>
+            <Grid item xs>
+              {applicant2}
+            </Grid>
+            <Grid item>{applicantScore2}</Grid>
+            <Grid item>
+              {applicantScore2 == "" ? <div /> : <StarIcon color={"white"} />}
+            </Grid>
+            <Grid item xs>
+              {applicantScore2 == "" ? (
+                <div />
+              ) : (
+                <LinearProgress
+                  variant="determinate"
+                  value={applicantScore2 * 20}
+                />
+              )}
+            </Grid>
+          </Grid>
+
+          <Grid container spacing={40}>
+            <Grid item xs>
+              {applicant3}
+            </Grid>
+            <Grid item>{applicantScore3}</Grid>
+            <Grid item>
+              {applicantScore3 == "" ? <div /> : <StarIcon color={"white"} />}
+            </Grid>
+            <Grid item xs>
+              {applicantScore3 == "" ? (
+                <div />
+              ) : (
+                <LinearProgress
+                  variant="determinate"
+                  value={applicantScore3 * 20}
+                />
+              )}
+            </Grid>
+          </Grid>
+
+          <Grid container spacing={40}>
+            <Grid item xs>
+              {applicant4}
+            </Grid>
+            <Grid item>{applicantScore4}</Grid>
+            <Grid item>
+              {applicantScore4 == "" ? <div /> : <StarIcon color={"white"} />}
+            </Grid>
+            <Grid item xs>
+              {applicantScore4 == "" ? (
+                <div />
+              ) : (
+                <LinearProgress
+                  variant="determinate"
+                  value={applicantScore4 * 20}
+                />
+              )}
+            </Grid>
+          </Grid>
+
+          <Grid container spacing={40}>
+            <Grid item xs>
+              {applicant5}
+            </Grid>
+            <Grid item>{applicantScore5}</Grid>
+            <Grid item>
+              {applicantScore5 == "" ? <div /> : <StarIcon color={"white"} />}
+            </Grid>
+            <Grid item xs>
+              {applicantScore5 == "" ? (
+                <div />
+              ) : (
+                <LinearProgress
+                  variant="determinate"
+                  value={applicantScore5 * 20}
+                />
+              )}
+            </Grid>
+          </Grid>
+
+          <Grid container spacing={40}>
+            <Grid item xs />
+            <Grid item />
+            <Grid item />
+            <Grid item xs>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={this.handleViewDetails}
+              >
+                View Details{" "}
+              </Button>
+            </Grid>
+          </Grid>
         </Paper>
       </div>
     );

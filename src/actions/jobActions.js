@@ -84,10 +84,10 @@ export function editJob(jobId, job) {
   };
 }
 
-export function closeJob(jobId) {
+export function closeJob(jobId, comment) {
   return function(dispatch) {
     return jobsApi
-      .closeJob(jobId)
+      .closeJob(jobId, comment)
       .then(data => {
         dispatch(loadJobsUpdatedSuccess(data.job));
       })
