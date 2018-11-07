@@ -21,6 +21,19 @@ export function loginUser(credentials, history) {
   };
 }
 
+export function changePassword(credentials, history) {
+  return function(dispatch) {
+    return sessionApi
+      .changePassword(credentials.user, credentials.password)
+      .then(response => {
+        history.push("/");
+      })
+      .catch(error => {
+        throw error;
+      });
+  };
+}
+
 export function logOutUser() {
   auth.logOut();
   return { type: types.LOG_OUT };

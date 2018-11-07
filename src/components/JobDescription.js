@@ -25,6 +25,12 @@ function JobDescription(props) {
   const { classes } = props;
   const { job } = props;
   const { users } = props;
+
+  let comments = "";
+  if (job.status == "Closed" && job.comments != null) {
+    comments = " - " + job.comments;
+  }
+
   const interviewerNames =
     job.interviewers != null && users.length > 0
       ? job.interviewers.map(interviewerId => {
@@ -60,7 +66,7 @@ function JobDescription(props) {
           </TableRow>
           <TableRow>
             <TableCell className={classes.col1} component="th" scope="row">
-              Status: {job.status}
+              Status: {job.status} {comments}
             </TableCell>
             <TableCell>Interviewers: {interviewerNamesDisplay}</TableCell>
           </TableRow>
