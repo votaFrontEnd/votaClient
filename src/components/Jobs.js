@@ -15,6 +15,7 @@ import JobFilter from "./JobFilter";
 import Chip from "@material-ui/core/Chip";
 import { loadCSS } from "fg-loadcss/src/loadCSS";
 import Icon from "@material-ui/core/Icon";
+import FilterIcon from "@material-ui/icons/FilterList";
 
 class Jobs extends Component {
   componentDidMount() {
@@ -45,11 +46,8 @@ class Jobs extends Component {
               overflow: "hidden"
             }}
           >
-            <Button
-              variant="outlined"
-              onClick={e => this.props.toggleDrawer(e)}
-            >
-              Filter
+            <Button onClick={e => this.props.toggleDrawer(e)}>
+              <FilterIcon />
             </Button>
           </span>
           <span>

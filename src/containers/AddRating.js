@@ -104,7 +104,7 @@ class AddRating extends Component {
       this.setState({
         parameters: this.state.parameters.map(parameter => {
           return parameter.parameter_id == skill.id
-            ? { ...parameter, description: value }
+            ? { ...parameter, comment: value, comments: value }
             : parameter;
         })
       });

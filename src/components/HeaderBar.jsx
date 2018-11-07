@@ -60,7 +60,9 @@ class HeaderBar extends React.Component {
                 targetOrigin={{ horizontal: "right", vertical: "top" }}
                 anchorOrigin={{ horizontal: "right", vertical: "top" }}
               >
-                <MenuItem key={1} primaryText="Change Password" />
+                <Link to="/changePassword/">
+                  <MenuItem key={1} primaryText="Change Password" />
+                </Link>
                 <MenuItem onClick={this.handleClose} primaryText="Sign Out" />
               </IconMenu>
             </div>
