@@ -58,22 +58,22 @@ class NewJob extends Component {
         {
           type: "skill",
           weight: 25,
-          description: "Goal 1"
+          description: "Skill 1"
         },
         {
           type: "skill",
           weight: 25,
-          description: "Goal 2"
+          description: "Skill 2"
         },
         {
           type: "skill",
           weight: 25,
-          description: "Goal 3"
+          description: "Skill 3"
         },
         {
           type: "skill",
           weight: 25,
-          description: "Goal 4"
+          description: "Skill 4"
         }
       ];
     }

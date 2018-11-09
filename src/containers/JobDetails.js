@@ -34,6 +34,7 @@ class JobDetails extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handlePublishJob = this.handlePublishJob.bind(this);
     this.handleCloseJob = this.handleCloseJob.bind(this);
+    this.handleCancelClose = this.handleCancelClose.bind(this);
     this.handleCloseDialogClickClose = this.handleCloseDialogClickClose.bind(
       this
     );
@@ -119,6 +120,10 @@ class JobDetails extends Component {
   handleCloseDialogClickClose() {
     const job = this.getJob();
     this.props.actions.closeJob(job.id, this.state.closeComments);
+    this.setState({ openCloseDialog: false });
+  }
+
+  handleCancelClose() {
     this.setState({ openCloseDialog: false });
   }
 
@@ -225,7 +230,7 @@ class JobDetails extends Component {
 
         <Dialog
           open={this.state.openCloseDialog}
-          onClose={this.handleCloseDialogClickClose}
+          onClose={this.handleCancelClose}
           aria-labelledby="form-dialog-title"
         >
           <DialogTitle id="form-dialog-title">Close Job</DialogTitle>
@@ -244,6 +249,7 @@ class JobDetails extends Component {
           </DialogContent>
 
           <DialogActions>
+            <Button onClick={this.handleCancelClose}>Cancel</Button>
             <Button onClick={this.handleCloseDialogClickClose} color="primary">
               Close
             </Button>
