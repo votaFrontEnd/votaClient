@@ -3,6 +3,7 @@ import RaisedButton from "material-ui/RaisedButton";
 import TextField from "material-ui/TextField";
 import Divider from "material-ui/Divider";
 import PageBase from "./PageBase";
+import { Link } from "react-router-dom";
 
 import {
   Table,
@@ -190,11 +191,13 @@ export default class JobForm extends Component {
           />
           <br />
           <br />
-          <RaisedButton
-            label="Cancel"
-            secondary={true}
-            disabled={this.props.viewOnly}
-          />
+          <Link to="/">
+            <RaisedButton
+              label="Cancel"
+              secondary={true}
+              disabled={this.props.viewOnly}
+            />
+          </Link>
           <RaisedButton
             label="Save"
             primary={true}

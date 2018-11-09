@@ -187,7 +187,8 @@ export default class ApplicantItem extends Component {
         ? averagesPerGoal.map(goal => (
             <div>
               {" "}
-              {goal.goal.description} - {goal.average}{" "}
+              {goal.goal.description}{" "}
+              {isNaN(goal.average) ? "" : " - " + goal.average}{" "}
             </div>
           ))
         : "N/A";
@@ -196,7 +197,8 @@ export default class ApplicantItem extends Component {
         ? averagesPerSkill.map(skill => (
             <div>
               {" "}
-              {skill.skill.description} - {skill.average}{" "}
+              {skill.skill.description}{" "}
+              {isNaN(skill.average) ? "" : " - " + skill.average}{" "}
             </div>
           ))
         : "N/A";
