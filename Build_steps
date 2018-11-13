@@ -1,0 +1,8 @@
+#build docker app
+docker build -t vota/ui .
+
+#List all docker images
+docker image ls
+
+#Tag loal docker image to format remote repo/app:version
+docker tag vota/ui:latest vota/ui:demo
