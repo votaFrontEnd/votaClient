@@ -190,7 +190,8 @@ export default class ApplicantItem extends Component {
               {goal.goal.description}{" "}
               {isNaN(goal.average)
                 ? ""
-                : " - " + (goal.average / goal.goal.weight) * 100}{" "}
+                : " - " +
+                  ((goal.average / goal.goal.weight) * 100).toFixed(2)}{" "}
             </div>
           ))
         : "N/A";
@@ -202,7 +203,8 @@ export default class ApplicantItem extends Component {
               {skill.skill.description}{" "}
               {isNaN(skill.average)
                 ? ""
-                : " - " + (skill.average / skill.skill.weight) * 100}{" "}
+                : " - " +
+                  ((skill.average / skill.skill.weight) * 100).toFixed(2)}{" "}
             </div>
           ))
         : "N/A";
