@@ -67,7 +67,7 @@ export default class ApplicantItem extends Component {
         for (var k = 0; k < ratingApplicantLength; k++) {
           var value = ratingsForApplicantArr[j].values[k];
           if (value.parameter_id == goal.id) {
-            sum += value.value;
+            sum += value.value * (goal.weight / 100);
           }
         }
       }
@@ -90,7 +90,7 @@ export default class ApplicantItem extends Component {
         for (var k = 0; k < ratingApplicantLength; k++) {
           var value = ratingsForApplicantArr[j].values[k];
           if (value.parameter_id == skill.id) {
-            sum += value.value;
+            sum += value.value * (skill.weight / 100);
           }
         }
       }
@@ -188,7 +188,10 @@ export default class ApplicantItem extends Component {
             <div>
               {" "}
               {goal.goal.description}{" "}
-              {isNaN(goal.average) ? "" : " - " + goal.average}{" "}
+              {isNaN(goal.average)
+                ? ""
+                : " - " +
+                  ((goal.average / goal.goal.weight) * 100).toFixed(2)}{" "}
             </div>
           ))
         : "N/A";
@@ -198,20 +201,21 @@ export default class ApplicantItem extends Component {
             <div>
               {" "}
               {skill.skill.description}{" "}
-              {isNaN(skill.average) ? "" : " - " + skill.average}{" "}
+              {isNaN(skill.average)
+                ? ""
+                : " - " +
+                  ((skill.average / skill.skill.weight) * 100).toFixed(2)}{" "}
             </div>
           ))
         : "N/A";
 
     const averagesForGoals =
       averagesPerGoal.length > 0
-        ? averagesPerGoal.reduce((a, b) => a + b.average, 0) /
-          averagesPerGoal.length
+        ? averagesPerGoal.reduce((a, b) => a + b.average, 0)
         : "N/A";
     const averagesForSkills =
       averagesPerSkill.length > 0
-        ? averagesPerSkill.reduce((a, b) => a + b.average, 0) /
-          averagesPerSkill.length
+        ? averagesPerSkill.reduce((a, b) => a + b.average, 0)
         : "N/A";
 
     return (

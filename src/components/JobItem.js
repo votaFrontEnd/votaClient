@@ -303,7 +303,7 @@ export default class JobItem extends Component {
             </Grid>
             <Grid item>{applicantScore2}</Grid>
             <Grid item>
-              {applicantScore2 == "" ? <div /> : <StarIcon color={"white"} />}
+              {applicantScore2 === "" ? <div /> : <StarIcon color={"white"} />}
             </Grid>
             <Grid item xs>
               {applicantScore2 == "" ? (

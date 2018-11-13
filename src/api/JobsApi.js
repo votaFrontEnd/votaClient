@@ -158,6 +158,19 @@ class JobsApi {
         return error;
       });
   }
+
+  static getAllUsers() {
+    const request = new Request("http://35.153.120.148:5000/user/getall", {
+      method: "GET"
+    });
+    return fetch(request)
+      .then(response => {
+        return response.json();
+      })
+      .catch(error => {
+        return error;
+      });
+  }
 }
 
 export default JobsApi;
