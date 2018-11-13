@@ -163,11 +163,13 @@ export function loadData() {
     return jobsApi
       .getData(auth.getUser())
       .then(data => {
+        jobsApi.getAllUsers().then(data => {
+          dispatch(loadUsersSuccess(data.users != null ? data.users : []));
+        });
         dispatch(loadJobsSuccess(data.jobs != null ? data.jobs : []));
         dispatch(
           loadApplicantsSuccess(data.applicants != null ? data.applicants : [])
         );
-        dispatch(loadUsersSuccess(data.users != null ? data.users : []));
       })
       .catch(error => {
         throw error;
