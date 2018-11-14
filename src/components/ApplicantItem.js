@@ -132,7 +132,7 @@ export default class ApplicantItem extends Component {
       var totalComments = "";
       if (users.length > 0) {
         interviewer = users.filter(user => {
-          return user.userid == rating.interviewer_id;
+          return user.userid === rating.interviewer_id;
         })[0].name;
       }
       const ratingValueLength =

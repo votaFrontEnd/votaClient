@@ -31,11 +31,17 @@ class Login extends React.Component {
 
   onSave(event) {
     event.preventDefault();
-    this.props.actions.loginUser(this.state.credentials, this.props.history);
+    let response = this.props.actions.loginUser(
+      this.state.credentials,
+      this.props.history
+    );
   }
 
   render() {
     const styles = {
+      error: {
+        color: "red"
+      },
       loginContainer: {
         minWidth: 320,
         maxWidth: 400,
@@ -100,6 +106,12 @@ class Login extends React.Component {
       }
     };
 
+    let sessionStatusDisplay = "";
+    let sessionStatus = this.props.sessionStatus;
+    if (sessionStatus != true && sessionStatus != false) {
+      sessionStatusDisplay = sessionStatus;
+    }
+
     return (
       <MuiThemeProvider>
         <div>
@@ -139,6 +151,8 @@ class Login extends React.Component {
                       />
                     </Link>
                   </div>
+
+                  <div style={styles.error}>{sessionStatusDisplay}</div>
                 </form>
               </Paper>
             </div>
@@ -155,7 +169,14 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
+function mapStatetoProps(state) {
+  const sessionStatus = state.session;
+  return {
+    sessionStatus
+  };
+}
+
 export default connect(
-  null,
+  mapStatetoProps,
   mapDispatchToProps
 )(Login);
