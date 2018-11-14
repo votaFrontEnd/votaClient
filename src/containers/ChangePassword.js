@@ -71,6 +71,7 @@ class ChangePassword extends Component {
     super(props);
     this.state = {
       credentials: {
+        user: auth.getUser(),
         currentPassword: "",
         newPassword: "",
         confirmPassword: ""

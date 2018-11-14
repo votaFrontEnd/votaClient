@@ -48,13 +48,13 @@ class JobDetails extends Component {
     };
   }
 
-  handleChange = event => {
-    this.setState({ interviewers: event.target.value });
-  };
-
   componentDidMount() {
     this.props.actions.loadData();
   }
+
+  handleChange = event => {
+    this.setState({ interviewers: event.target.value });
+  };
 
   getJob() {
     const jobs = this.props.jobs;
@@ -274,7 +274,9 @@ class JobDetails extends Component {
               input={<Input id="select-multiple-chip" />}
               renderValue={selected => (
                 <div>
-                  {selected.map(value => <Chip key={value} label={value} />)}
+                  {selected.map(value => (
+                    <Chip key={value} label={value} />
+                  ))}
                 </div>
               )}
             >
