@@ -25,7 +25,7 @@ class SessionApi {
       }),
       body: JSON.stringify({ userid: userName, pwd: password })
     });
-
+    debugger;
     return fetch(request)
       .then(response => {
         return response.json();
