@@ -1,4 +1,5 @@
 export const LOG_IN_SUCCESS = "LOG_IN_SUCCESS";
+export const LOG_IN_FAILTURE = "LOG_IN_FAILURE";
 export const LOG_OUT = "LOG_OUT";
 export const LOAD_JOBS_SUCCESS = "LOAD_JOBS_SUCCESS";
 export const LOAD_USERS_SUCCESS = "LOAD_USERS_SUCCESS";

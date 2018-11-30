@@ -6,14 +6,26 @@ export function loginSuccess(user) {
   return { type: types.LOG_IN_SUCCESS, user };
 }
 
+export function loginFailure(error) {
+  return { type: types.LOG_IN_FAILTURE, error };
+}
+
 export function loginUser(credentials, history) {
   return function(dispatch) {
     return sessionApi
       .login(credentials.user, credentials.password)
       .then(response => {
-        auth.login(credentials.user);
-        dispatch(loginSuccess(credentials.user));
-        history.push("/");
+        if (response.error != null) {
+          dispatch(loginFailure(response.error));
+        } else {
+          if (response.user == null) {
+            dispatch(loginFailure("User Not Found"));
+          } else {
+            auth.login(response.user.userid);
+            dispatch(loginSuccess(response.user.userid));
+            history.push("/");
+          }
+        }
       })
       .catch(error => {
         throw error;
@@ -24,7 +36,7 @@ export function loginUser(credentials, history) {
 export function changePassword(credentials, history) {
   return function(dispatch) {
     return sessionApi
-      .changePassword(credentials.user, credentials.password)
+      .changePassword(credentials.user, credentials.newPassword)
       .then(response => {
         history.push("/");
       })

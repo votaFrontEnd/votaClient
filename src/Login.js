@@ -31,11 +31,17 @@ class Login extends React.Component {
 
   onSave(event) {
     event.preventDefault();
-    this.props.actions.loginUser(this.state.credentials, this.props.history);
+    let response = this.props.actions.loginUser(
+      this.state.credentials,
+      this.props.history
+    );
   }
 
   render() {
     const styles = {
+      error: {
+        color: "red"
+      },
       loginContainer: {
         minWidth: 320,
         maxWidth: 400,
@@ -57,21 +63,6 @@ class Login extends React.Component {
       flatButton: {
         color: grey500
       },
-      checkRemember: {
-        style: {
-          float: "left",
-          maxWidth: 180,
-          paddingTop: 5
-        },
-        labelStyle: {
-          color: grey500
-        },
-        iconStyle: {
-          color: grey500,
-          borderColor: grey500,
-          fill: grey500
-        }
-      },
       loginBtn: {
         float: "right"
       },
@@ -83,12 +74,6 @@ class Login extends React.Component {
         margin: 2,
         fontSize: 13
       },
-      btnFacebook: {
-        background: "#4f81e9"
-      },
-      btnGoogle: {
-        background: "#e14441"
-      },
       btnSpan: {
         marginLeft: 5
       },
@@ -99,6 +84,12 @@ class Login extends React.Component {
         height: 400
       }
     };
+
+    let sessionStatusDisplay = "";
+    let sessionStatus = this.props.sessionStatus;
+    if (sessionStatus != true && sessionStatus != false) {
+      sessionStatusDisplay = sessionStatus;
+    }
 
     return (
       <MuiThemeProvider>
@@ -139,6 +130,8 @@ class Login extends React.Component {
                       />
                     </Link>
                   </div>
+
+                  <div style={styles.error}>{sessionStatusDisplay}</div>
                 </form>
               </Paper>
             </div>
@@ -155,7 +148,14 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
+function mapStatetoProps(state) {
+  const sessionStatus = state.session;
+  return {
+    sessionStatus
+  };
+}
+
 export default connect(
-  null,
+  mapStatetoProps,
   mapDispatchToProps
 )(Login);
