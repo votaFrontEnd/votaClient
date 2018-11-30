@@ -26,6 +26,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Select from "@material-ui/core/Select";
 import Checkbox from "@material-ui/core/Checkbox";
 import Chip from "@material-ui/core/Chip";
+import auth from "../auth/authenticator";
 
 class JobDetails extends Component {
   constructor(props) {
@@ -190,7 +191,7 @@ class JobDetails extends Component {
         potentialInterviewers.push(user);
       }
     }
-
+    let amIOwner = auth.getUser() == job.owner;
     return (
       <div>
         <Dialog
@@ -302,50 +303,55 @@ class JobDetails extends Component {
         </Dialog>
 
         <JobDescription job={job} users={users} />
-        <div style={styles.content}>
-          <Link to={"/editJob/" + job.id}>
-            <Button style={styles.buttons} variant="contained" color="primary">
-              View/Edit Job
+        {amIOwner && (
+          <div style={styles.content}>
+            <Link to={"/editJob/" + job.id}>
+              <Button
+                style={styles.buttons}
+                variant="contained"
+                color="primary"
+              >
+                View/Edit Job
+              </Button>
+            </Link>
+            <Button
+              style={styles.buttons}
+              variant="contained"
+              color="primary"
+              disabled={status == "Published" ? false : true}
+              onClick={this.handleAddApplicantsClickOpen}
+            >
+              Add Applicant
             </Button>
-          </Link>
-          <Button
-            style={styles.buttons}
-            variant="contained"
-            color="primary"
-            disabled={status == "Published" ? false : true}
-            onClick={this.handleAddApplicantsClickOpen}
-          >
-            Add Applicant
-          </Button>
-          <Button
-            style={styles.buttons}
-            variant="contained"
-            color="primary"
-            disabled={status == "Published" ? false : true}
-            onClick={this.handleAddInterviewerClickOpen}
-          >
-            Add Interviewers
-          </Button>
-          <Button
-            style={styles.buttons}
-            variant="contained"
-            color="primary"
-            disabled={status == "Published" ? true : false}
-            onClick={this.handlePublishJob}
-          >
-            Publish Job
-          </Button>
-          <Button
-            style={styles.buttons}
-            variant="contained"
-            color="secondary"
-            disabled={status == "Closed" ? true : false}
-            onClick={this.handleCloseJob}
-          >
-            Close Job
-          </Button>
-        </div>
-
+            <Button
+              style={styles.buttons}
+              variant="contained"
+              color="primary"
+              disabled={status == "Published" ? false : true}
+              onClick={this.handleAddInterviewerClickOpen}
+            >
+              Add Interviewers
+            </Button>
+            <Button
+              style={styles.buttons}
+              variant="contained"
+              color="primary"
+              disabled={status == "Published" ? true : false}
+              onClick={this.handlePublishJob}
+            >
+              Publish Job
+            </Button>
+            <Button
+              style={styles.buttons}
+              variant="contained"
+              color="secondary"
+              disabled={status == "Closed" ? true : false}
+              onClick={this.handleCloseJob}
+            >
+              Close Job
+            </Button>
+          </div>
+        )}
         {applicants.length > 0 && (
           <div>
             <Applicants job={job} users={users} applicants={applicants} />

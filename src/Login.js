@@ -63,21 +63,6 @@ class Login extends React.Component {
       flatButton: {
         color: grey500
       },
-      checkRemember: {
-        style: {
-          float: "left",
-          maxWidth: 180,
-          paddingTop: 5
-        },
-        labelStyle: {
-          color: grey500
-        },
-        iconStyle: {
-          color: grey500,
-          borderColor: grey500,
-          fill: grey500
-        }
-      },
       loginBtn: {
         float: "right"
       },
@@ -88,12 +73,6 @@ class Login extends React.Component {
         borderRadius: 2,
         margin: 2,
         fontSize: 13
-      },
-      btnFacebook: {
-        background: "#4f81e9"
-      },
-      btnGoogle: {
-        background: "#e14441"
       },
       btnSpan: {
         marginLeft: 5
