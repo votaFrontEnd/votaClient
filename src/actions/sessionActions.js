@@ -18,9 +18,13 @@ export function loginUser(credentials, history) {
         if (response.error != null) {
           dispatch(loginFailure(response.error));
         } else {
-          auth.login(response.user.userid);
-          dispatch(loginSuccess(response.user.userid));
-          history.push("/");
+          if (response.user == null) {
+            dispatch(loginFailure("User Not Found"));
+          } else {
+            auth.login(response.user.userid);
+            dispatch(loginSuccess(response.user.userid));
+            history.push("/");
+          }
         }
       })
       .catch(error => {

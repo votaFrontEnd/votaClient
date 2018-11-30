@@ -5,6 +5,7 @@ import Divider from "material-ui/Divider";
 import PageBase from "./PageBase";
 import { Link } from "react-router-dom";
 
+import { Typography } from "@material-ui/core";
 import {
   Table,
   TableBody,
@@ -66,7 +67,12 @@ export default class JobForm extends Component {
           <br />
           <Divider />
           <br />
-          Goals
+          Goals{" "}
+          <Typography variant="caption">
+            {" "}
+            Rate the candidates’ ability to achieve the required goals based on
+            their knowledge/experience{" "}
+          </Typography>
           <Table>
             <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
               <TableRow>
@@ -129,7 +135,12 @@ export default class JobForm extends Component {
           <br />
           <Divider />
           <br />
-          Skills
+          Skills{" "}
+          <Typography variant="caption">
+            {" "}
+            Rate proficiency the candidate has for the below skills required for
+            this role{" "}
+          </Typography>
           <Table>
             <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
               <TableRow>
